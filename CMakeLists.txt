@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.10)
 
 project(NESmulator)
 
-# Find all .c files
-FILE(GLOB Sources src/*.c)
+add_executable(${PROJECT_NAME} 
+    src/main.cpp
+)
 
-add_executable(NESmulator ${Sources})
+target_include_directories(${PROJECT_NAME} PRIVATE src/)
+
+add_subdirectory(cpu6502mulator)
+target_link_libraries(NESmulator PRIVATE cpu6502mulator)
