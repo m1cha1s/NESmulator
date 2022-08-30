@@ -20,6 +20,12 @@ public:
   {
     this->start = start;
     end = MAX_MEM;
+
+    mem[0xFFFC] = 0;
+    mem[0xFFFD] = 0;
+
+    mem[0x0000] = cpu6502::LDA_IMM;
+    mem[0x0001] = 123;
   }
 
   uint8_t get(size_t relativeLoc)
@@ -41,12 +47,17 @@ public:
 int main()
 {
   mem::MemMap memMap;
+
   memMap.addEntry<MyMem>();
+  std::cout << memMap.dumpEntries();
 
   mem::Mem mem(memMap);
 
-  std::cout << memMap.dumpEntries();
+  cpu6502::CPU6502 cpu;
 
-  cpu6502::CPU6502 cpu(memMap);
-  cpu.reset();
+  std::cout << cpu.dumpRegs();
+  cpu.execute(mem);
+  std::cout << cpu.dumpRegs();
+  cpu.execute(mem);
+  std::cout << cpu.dumpRegs();
 }
