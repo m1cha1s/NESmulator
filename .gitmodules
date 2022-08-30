@@ -1,3 +1,6 @@
 [submodule "cpu6502mulator"]
 	path = cpu6502mulator
 	url = git@github.com:m1cha1s/cpu6502mulator.git
+[submodule "memmulator"]
+	path = memmulator
+	url = git@github.com:m1cha1s/memmulator.git
